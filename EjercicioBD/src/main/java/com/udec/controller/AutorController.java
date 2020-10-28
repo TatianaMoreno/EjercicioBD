@@ -30,7 +30,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 
-
 @Validated
 @RestController
 @Api(description = "Todos los servicios transaccionales que se pueden realizar sobre una Autor.",tags = "Servicios rest   ")

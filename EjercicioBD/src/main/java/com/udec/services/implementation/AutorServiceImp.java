@@ -22,7 +22,7 @@ public class AutorServiceImp implements IAutorService {
 	@Autowired
 	IAutorRepo repo;
 
-	
+
 	@Override
 	public void insertar(Autor objeto) {
 		Integer contador  =repo.validarExistencia(objeto.getCedula());

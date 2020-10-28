@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class ErrorDto {
 	
+	
 	@ApiModelProperty(notes = "Variable que contiene la fecha de la excepcion.", required = true, position = 0)
 	private LocalDateTime timestamp;
 	@ApiModelProperty(notes = "Variable que contiene el status de la excepcion.", required = true, position = 1)
