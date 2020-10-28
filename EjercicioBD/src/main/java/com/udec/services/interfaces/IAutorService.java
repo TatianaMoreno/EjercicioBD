@@ -14,7 +14,6 @@ public abstract interface IAutorService extends ICrudService<Autor,Integer>{
 	public void eliminarLibros(Integer id);
 	public Page<Autor> listarNombreLibrosUno(String nombre, int page, int size) ;
 	public Page<Autor> listarPaginado(Boolean lazy, Integer page, Integer size);	
-	public Autor consultar(Boolean lazy, Integer id);
-	
+	public Autor consultar(Boolean lazy, Integer id);	
 }
 
