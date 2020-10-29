@@ -13,7 +13,6 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.Immutable;
 
 @Entity
-@Immutable
 @Table(name = "autor_view")
 public class AutorView {
 	
