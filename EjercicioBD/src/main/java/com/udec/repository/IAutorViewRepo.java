@@ -1,5 +1,7 @@
 package com.udec.repository;
 
+import javax.persistence.FieldResult;
+import javax.persistence.SqlResultSetMapping;
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
@@ -13,18 +15,16 @@ import org.springframework.stereotype.Repository;
 import com.udec.entity.AutorView;
 
 
-
-
 @Repository
 public interface IAutorViewRepo extends JpaRepository<AutorView, Integer> {
 	 
 
-	@Query(value = "SELECT f_obtener_autores()", nativeQuery = true)
-	public Page<Object[]> listarVistaAutores();
+	@Query(value = "SELECT *  from f_obtener_autores()", nativeQuery = true)
+	public Page<AutorView> listarVistaAutores(Pageable pageable);
 	
 	
-
-	@Query(value = "SELECT f_obtener_autor(:_id)", nativeQuery = true)
+	
+	@Query(value = "SELECT * from public.f_obtener_autor(?1)", nativeQuery = true)
 	public AutorView listarVistaAutor(@Param("_id") Integer id);
 		
 

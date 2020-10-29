@@ -21,22 +21,22 @@ public class AutorView implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name = "id")
+	@Column(insertable = false, updatable = false)
 	private Integer id;	
 	
-	@Column(name = "nombre")
+	@Column(insertable = false, updatable = false)
 	private String nombre;
 	
-	@Column(name = "apellido")
+	@Column(insertable = false, updatable = false)
 	private String apellido;
 
-	@Column(name = "descripcion")
+	@Column(insertable = false, updatable = false)
 	private String descripcion;
 	
-	@Column(name = "barrio")
+	@Column(insertable = false, updatable = false)
 	private String barrio;
 	
-	@Column(name = "cantidad")
+	@Column(insertable = false, updatable = false)
 	private Integer cantidad;
 
 	public Integer getId() {

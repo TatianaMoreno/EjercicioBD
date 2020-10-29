@@ -4,6 +4,7 @@ package com.udec.services.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -138,10 +139,10 @@ public class AutorServiceImp implements IAutorService {
 
 
 	@Override
-	public Page<Object[]> listarVistaAutores() {
-		Page<Object[]> listadoautores = repovista.listarVistaAutores();
+	public Page<AutorView> listarVistaAutores(int page, int size) {
+		Page<AutorView> listadoautores = repovista.listarVistaAutores(PageRequest.of(page, size));
 		System.out.println(listadoautores);
-		return null;
+		return listadoautores;
 	}
 
 
