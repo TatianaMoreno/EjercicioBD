@@ -115,6 +115,7 @@ public class AutorController {
 		return new ResponseEntity<Page<AutorView>>(autors, HttpStatus.OK);
 	}
 	
+	
 	@ApiOperation(value = "Listar Autores vista", notes = "El metodo que lista los autores de un libro.",response = List.class)
 	@GetMapping("/listarVistaAutor/{id}")
 	public ResponseEntity<AutorView> listarVistaAutores(@PathVariable Integer id){
