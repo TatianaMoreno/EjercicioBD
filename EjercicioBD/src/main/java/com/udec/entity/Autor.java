@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -62,6 +63,7 @@ public class Autor {
 	@OneToMany(mappedBy = "autor", orphanRemoval=true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Libro> libros;
 	
+	@Valid
 	@NotNull(message="La direccion es requerida")
 	@OneToOne(mappedBy = "autor", orphanRemoval=true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Direccion direccion;
