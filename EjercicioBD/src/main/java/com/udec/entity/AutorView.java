@@ -1,5 +1,7 @@
 package com.udec.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,25 +16,81 @@ import org.hibernate.annotations.Immutable;
 
 @Entity
 @Table(name = "autor_view")
-public class AutorView {
+public class AutorView implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column
+	@Column(name = "id")
 	private Integer id;	
 	
-	@Column
+	@Column(name = "nombre")
 	private String nombre;
 	
-	@Column
+	@Column(name = "apellido")
 	private String apellido;
 
-	@Column
+	@Column(name = "descripcion")
 	private String descripcion;
 	
-	@Column
+	@Column(name = "barrio")
 	private String barrio;
 	
-	@Column
+	@Column(name = "cantidad")
 	private Integer cantidad;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public String getBarrio() {
+		return barrio;
+	}
+
+	public void setBarrio(String barrio) {
+		this.barrio = barrio;
+	}
+
+	public Integer getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
 	
 }

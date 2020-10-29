@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
 import com.udec.entity.Autor;
 import com.udec.entity.AutorView;
 import com.udec.entity.Direccion;
@@ -19,9 +20,9 @@ import com.udec.repository.IDireccionRepo;
 import com.udec.services.interfaces.IAutorService;
 
 
+
 @Service("Autor")
 public class AutorServiceImp implements IAutorService {
-
 	@Autowired
 	IAutorRepo repo;
 	
@@ -137,9 +138,10 @@ public class AutorServiceImp implements IAutorService {
 
 
 	@Override
-	public Page<AutorView> listarVistaAutores(Integer page, Integer size) {
-		Page<AutorView> listadoautores = repovista.listarVistaAutores(PageRequest.of(page, size, Sort.by("nombre").ascending()));
-		return listadoautores;
+	public Page<Object[]> listarVistaAutores() {
+		Page<Object[]> listadoautores = repovista.listarVistaAutores();
+		System.out.println(listadoautores);
+		return null;
 	}
 
 

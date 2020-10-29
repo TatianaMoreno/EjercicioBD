@@ -39,7 +39,6 @@ import io.swagger.annotations.ApiResponses;
 @ApiResponses(value={@ApiResponse(code = 200, message = "Transaccion exitosa"),@ApiResponse(code = 403, message = "Acceso prohibido"),@ApiResponse(code = 401, message = "Metodo no autorizado"),@ApiResponse(code = 404, message = "Recurso no encontrado")})
 public class AutorController {
 	
-
 	@Autowired
 	@Qualifier("Autor")
 	IAutorService service;
@@ -111,9 +110,9 @@ public class AutorController {
 	
 	@ApiOperation(value = "Listar Autores vista", notes = "El metodo que lista los autores de un libro.",response = List.class)
 	@GetMapping("/listarVistaAutores/{page}/{size}")
-	public ResponseEntity<Page<AutorView>> listarVistaAutores(@PathVariable int page, @PathVariable int size){
-		Page<AutorView> autors = service.listarVistaAutores(page, size);
-		return new ResponseEntity<Page<AutorView>>(autors, HttpStatus.OK);
+	public ResponseEntity<Page<Object[]>> listarVistaAutores(){
+		Page<Object[]> autors = service.listarVistaAutores();
+		return new ResponseEntity<Page<Object[]>>(autors, HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "Listar Autores vista", notes = "El metodo que lista los autores de un libro.",response = List.class)
