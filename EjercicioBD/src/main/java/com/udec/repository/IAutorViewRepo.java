@@ -12,20 +12,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.udec.entity.AutorView;
+import com.udec.view.AutorView;
 
 
 @Repository
 public interface IAutorViewRepo extends JpaRepository<AutorView, Integer> {
-	 
-
-	@Query(value = "SELECT *  from f_obtener_autores()", nativeQuery = true)
-	public Page<AutorView> listarVistaAutores(Pageable pageable);
-	
-	
-	
-	@Query(value = "SELECT * from public.f_obtener_autor(?1)", nativeQuery = true)
-	public AutorView listarVistaAutor(@Param("_id") Integer id);
-		
-
+	//@Query(value = "SELECT * from f_obtener_autores()", nativeQuery = true)
+	//public Page<AutorView> listarVistaAutores(Pageable pageable);
+	//@Query(value = "SELECT * from public.f_obtener_autor(?1)", nativeQuery = true)
+	//public AutorView listarVistaAutor(@Param("_id") Integer id);
 }

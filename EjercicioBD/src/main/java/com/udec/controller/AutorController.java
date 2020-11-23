@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.udec.dto.AutorDto;
+import com.udec.dto.AutorLectorDto;
 import com.udec.entity.Autor;
-import com.udec.entity.AutorView;
+import com.udec.entity.AutorLector;
 import com.udec.entity.Direccion;
 import com.udec.services.interfaces.IAutorService;
+import com.udec.view.AutorView;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,6 +37,7 @@ import io.swagger.annotations.ApiResponses;
 
 @Validated
 @RestController
+@PreAuthorize("hasAuthority('Admin')")
 @Api(description = "Todos los servicios transaccionales que se pueden realizar sobre una Autor.",tags = "Servicios rest   ")
 @RequestMapping("/autores/")
 @ApiResponses(value={@ApiResponse(code = 200, message = "Transaccion exitosa"),@ApiResponse(code = 403, message = "Acceso prohibido"),@ApiResponse(code = 401, message = "Metodo no autorizado"),@ApiResponse(code = 404, message = "Recurso no encontrado")})
@@ -84,6 +88,14 @@ public class AutorController {
 		return new ResponseEntity<Object>( HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "Editar Direccion", notes = "El metodo que edita al direccion de un Autor.",response = Direccion.class)
+	@ApiResponses(value={@ApiResponse(code = 201, message = "Objeto creado")})
+	@PutMapping("/editarDireccionOpcional")
+	public ResponseEntity<Object> editarOpcional(@Valid @RequestBody Direccion direccion){
+		service.editarDireccionOpcional(direccion);
+		return new ResponseEntity<Object>( HttpStatus.OK);
+	}
+	
 	
 	@ApiOperation(value = "Eliminar Autor", notes = "El metodo que elimina un Autor por su cedula.")
 	@ApiResponses(value={@ApiResponse(code = 204, message = "No hay contenido")})
@@ -116,8 +128,6 @@ public class AutorController {
 	}
 	
 	
-	
-	
 	@ApiOperation(value = "Listar Autores vista", notes = "El metodo que lista los autores de un libro.",response = List.class)
 	@GetMapping("/listarVistaAutor/{id}")
 	public ResponseEntity<AutorView> listarVistaAutores(@PathVariable Integer id){
@@ -125,7 +135,28 @@ public class AutorController {
 		return new ResponseEntity<AutorView>(autors, HttpStatus.OK);
 	}
 	
+	@PostMapping("/asociarLector")
+	@ApiOperation(value = "Crear Autor", notes = "El metodo que crea una nueva Autor.",response = Autor.class)
+	@ApiResponses(value={@ApiResponse(code = 201, message = "Objeto creado")})
+	public ResponseEntity<Object> insertar(@Valid @RequestBody AutorLectorDto autor){
+		service.guardarLector(autor);
+		return new ResponseEntity<Object>(HttpStatus.CREATED);
+	}
 	
+	@ApiOperation(value = "Listar Autores vista", notes = "El metodo que lista los autores de un libro.",response = List.class)
+	@GetMapping("/listarLectores/{id}")
+	public ResponseEntity<List<AutorLector>> listarLectores(@PathVariable Integer id){
+		List<AutorLector> autors = service.listarPorAutor(id);
+		return new ResponseEntity<List<AutorLector>>(autors, HttpStatus.OK);
+	}
+	
+	@PostMapping("/asociarLectorLista")
+	@ApiOperation(value = "Crear Autor", notes = "El metodo que crea una nueva Autor.",response = Autor.class)
+	@ApiResponses(value={@ApiResponse(code = 201, message = "Objeto creado")})
+	public ResponseEntity<Object> insertarLista(@Valid @RequestBody List<AutorLectorDto> autor){
+		service.guardarLector(autor);
+		return new ResponseEntity<Object>(HttpStatus.CREATED);
+	}
 
 	
 }

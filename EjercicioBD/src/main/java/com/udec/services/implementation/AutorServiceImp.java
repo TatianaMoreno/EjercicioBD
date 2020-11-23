@@ -1,6 +1,10 @@
 package com.udec.services.implementation;
 
 
+import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -8,17 +12,21 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.udec.dto.AutorLectorDto;
 import com.udec.entity.Autor;
-import com.udec.entity.AutorView;
+import com.udec.entity.AutorLector;
 import com.udec.entity.Direccion;
+import com.udec.entity.Lector;
 import com.udec.entity.Libro;
 import com.udec.exception.ArgumentRequiredException;
 import com.udec.exception.BussinesLogicException;
 import com.udec.exception.ModelNotFoundException;
+import com.udec.repository.IAutorLectorRepo;
 import com.udec.repository.IAutorRepo;
 import com.udec.repository.IAutorViewRepo;
 import com.udec.repository.IDireccionRepo;
 import com.udec.services.interfaces.IAutorService;
+import com.udec.view.AutorView;
 
 
 
@@ -32,6 +40,9 @@ public class AutorServiceImp implements IAutorService {
 	
 	@Autowired
 	IAutorViewRepo repovista;
+	
+	@Autowired
+	IAutorLectorRepo repoautorlector;
 
 
 	@Override
@@ -134,13 +145,22 @@ public class AutorServiceImp implements IAutorService {
 			repoDireccion.modificarDireccion(direccion.getBarrio(), direccion.getDescripcion(), direccion.getId());
 		else
 			throw new ModelNotFoundException("La direccion no existe");
-		
 	}
-
-
+	
+	@Override
+	public void editarDireccionOpcional(Direccion direccion) {
+		if(direccion.getId() == null) {
+			throw new ArgumentRequiredException("El id del autor debe ser obligatorio");
+		}
+		Direccion directorConsultado = repoDireccion.findById(direccion.getId()).orElseThrow(() -> new ModelNotFoundException("Autor no encontrado"));
+		directorConsultado.setBarrio(direccion.getBarrio());
+		directorConsultado.setDescripcion(direccion.getDescripcion());
+		repoDireccion.save(directorConsultado);
+	}
+	
 	@Override
 	public Page<AutorView> listarVistaAutores(int page, int size) {
-		Page<AutorView> listadoautores = repovista.listarVistaAutores(PageRequest.of(page, size));
+		Page<AutorView> listadoautores = repovista.findAll(PageRequest.of(page, size));
 		System.out.println(listadoautores);
 		return listadoautores;
 	}
@@ -148,12 +168,45 @@ public class AutorServiceImp implements IAutorService {
 
 	@Override
 	public AutorView listarVistaAutor(Integer id) {
-		AutorView autorVista = repovista.listarVistaAutor(id);
+		AutorView autorVista =  repovista.findById(id).get();
 		if(autorVista == null) {
 			throw new ModelNotFoundException("Autor no encontrado.");
 		}
 		
 		return autorVista;
+	}
+
+
+	@Override
+	public void guardarLector(AutorLectorDto autorLector) {
+		repoautorlector.guardar(
+				autorLector.getAutor().getId(),autorLector.getLector().getId(),autorLector.getInfoAdicional());
+		
+	}
+
+
+	@Override
+	public List<AutorLector> listarPorAutor(Integer idAutor) {
+		// TODO Auto-generated method stub
+		return repoautorlector.listarPorAutor(idAutor);
+	}
+
+
+	@Override
+	public List<AutorLector> listarAutorSoloLector(Integer idAutor) {
+		// TODO Auto-generated method stub
+		return repoautorlector.listarAutor(idAutor);
+	}
+
+	@Transactional
+	@Override
+	public void guardarLector(List<AutorLectorDto> autorLector) {
+		// TODO Auto-generated method stub
+		for(AutorLectorDto ob: autorLector) {
+			repoautorlector.guardar(
+					ob.getAutor().getId() ,ob.getLector().getId(),ob.getInfoAdicional());
+		}
+		
 	}
 
 

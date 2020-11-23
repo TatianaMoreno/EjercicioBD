@@ -1,4 +1,4 @@
-package com.udec.entity;
+package com.udec.view;
 
 import java.io.Serializable;
 
@@ -29,6 +29,9 @@ public class AutorView implements Serializable{
 	
 	@Column(insertable = false, updatable = false)
 	private String apellido;
+	
+	@Column(insertable = false, updatable = false)
+	private String cedula;	
 
 	@Column(insertable = false, updatable = false)
 	private String descripcion;
@@ -63,6 +66,14 @@ public class AutorView implements Serializable{
 		this.apellido = apellido;
 	}
 
+	public String getCedula() {
+		return cedula;
+	}
+
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
+	} 
+	
 	public String getDescripcion() {
 		return descripcion;
 	}
