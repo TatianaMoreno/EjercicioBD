@@ -18,5 +18,4 @@ public class EjercicioBdApplication extends SpringBootServletInitializer{
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(SpringApplicationBuilder.class);
 	}
-
 }
