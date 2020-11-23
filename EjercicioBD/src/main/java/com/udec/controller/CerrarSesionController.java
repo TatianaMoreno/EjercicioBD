@@ -32,7 +32,6 @@ public class CerrarSesionController {
 	@ApiResponses(value={@ApiResponse(code = 204, message = "No hay contenido")})
 	@DeleteMapping("/anular/{token:.*}")
 	public void eliminar(@Valid @NonNull @PathVariable("token") String token ){
-		new XYZ();
 		tokenServices.revokeToken(token);
 	}
 	
