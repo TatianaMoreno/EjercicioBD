@@ -8,15 +8,15 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-public class EjercicioBdApplication /*extends SpringBootServletInitializer*/{
+public class EjercicioBdApplication extends SpringBootServletInitializer{
 
 	public static void main(String[] args) {
 		SpringApplication.run(EjercicioBdApplication.class, args);
 	}
-	/*
+	
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(SpringApplicationBuilder.class);
-	}*/
+	}
 
 }
